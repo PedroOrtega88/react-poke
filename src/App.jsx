@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import styles from './poke.module.css'; 
 
 function BuscadorPokemon() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchPoke, setSearchPoke] = useState('');
   const [pokemonData, setPokemonData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (searchTerm.trim() === '') {
+    if (searchPoke.trim() === '') {
       setPokemonData(null); 
       return;
     }
 
     const fetchPokemon = async () => {
-      setIsLoading(true);
+      setLoading(true);
       setError('');
 
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchPoke.toLowerCase()}`);
         if (!response.ok) {
           throw new Error('Pokémon no encontrado');
         }
@@ -29,11 +29,11 @@ function BuscadorPokemon() {
         setPokemonData(null);
       }
 
-      setIsLoading(false);
+      setLoading(false);
     };
 
     fetchPokemon();
-  }, [searchTerm]); 
+  }, [searchPoke]); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,19 +41,19 @@ function BuscadorPokemon() {
   };
 
   const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchPoke(e.target.value);
   };
 
   return (
-    <div className={styles.container}>
+    <div Name={styles.container}>
       <form onSubmit={handleSubmit} className={styles.poke}>
         <label htmlFor="search">Buscar Pokémon:</label>
         <input
           type="text"
           id="search"
-          value={searchTerm}
+          value={searchPoke}
           onChange={handleInputChange}
-          placeholder="Ingrese el nombre del Pokémon"
+          placeholder="Nombre del Pokemon"
         />
         <button type="submit">Buscar</button>
       </form>
